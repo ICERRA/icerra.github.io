@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>they never die - Hexo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="ICERRA,"> 
+    <meta name="description" content="LeetCode：两数相加—–加尼玛a+b不就行了joke今天的份，回家的票还没候补到，这tm，估计只能高铁了小朋友。
+原题：
+​        给出两个 非空 的链表用来表示两个非负的整数。其中，,"> 
+    <meta name="author" content="John Doe"> 
+    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">Hexo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="http://yoursite.com"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">they never die</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">they never die</h1>
+        <div class="stuff">
+            <span>九月 20, 2019</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="LeetCode：两数相加—–加尼玛a-b不就行了joke"><a href="#LeetCode：两数相加—–加尼玛a-b不就行了joke" class="headerlink" title="LeetCode：两数相加—–加尼玛a+b不就行了joke"></a>LeetCode：两数相加—–加尼玛a+b不就行了joke</h3><p>今天的份，回家的票还没候补到，这tm，估计只能高铁了小朋友。</p>
+<p>原题：</p>
+<p>​        给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
+<p>​         如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和，您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">输出：7 -&gt; 0 -&gt; 8</span><br><span class="line">原因：342 + 465 = 807</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路：</strong></p>
+<p>1 将当前结点初始化为返回列表的哑结点。</p>
+<p>2 将进位 carrycarry 初始化为 0。<br>3 将 p 和 q 分别初始化为列表 l1 和 l2 的头部。<br>4 遍历列表 l1 和 l2 直至到达它们的尾端。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将 x 设为结点 p 的值。如果 p 已经到达 l1 的末尾，则将其值设置为 0。</span><br><span class="line">   将 y 设为结点 q 的值。如果 q 已经到达 l2 的末尾，则将其值设置为 0。</span><br><span class="line">   设定 sum = x + y + carry。</span><br><span class="line">   更新进位的值，carry = sum / 10。</span><br><span class="line">   创建一个数值为 (sum  mod  10) 的新结点，并将其设置为当前结点的下一个结点，然后将当前结点前进到下一       个结点。</span><br><span class="line">   同时，将 p 和 q 前进到下一个结点。</span><br></pre></td></tr></table></figure>
+
+<p>5 检查 carry = 1是否成立，如果成立，则向返回列表追加一个含有数字 1 的新结点。<br>6 返回哑结点的下一个结点。</p>
+<p><strong>代码</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">solution</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    ListNode dummyHead = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    ListNode p = l1, q = l2, curr = dummyHead;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || q != <span class="keyword">null</span>||carry!=<span class="number">0</span>) &#123;<span class="comment">//carry要不为0，不然两数相加多一位时会有错误</span></span><br><span class="line">        <span class="keyword">int</span> x = (p != <span class="keyword">null</span>) ? p.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = (q != <span class="keyword">null</span>) ? q.val : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = carry + x + y;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        curr.next = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">        curr = curr.next;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) p = p.next;</span><br><span class="line">        <span class="keyword">if</span> (q != <span class="keyword">null</span>) q = q.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (carry &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        curr.next = <span class="keyword">new</span> ListNode(carry); <span class="comment">//carry=1  curr存放结果</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummyHead.next;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><u>ListNode</u>:ListNode list=new ListNode() 、 ListNode list=new ListNode(0) 与 ListNode list=null 的区别</p>
+<blockquote>
+<p>ListNode list=new ListNode() 初始化一个空节点，无值,不提倡此种写法。</p>
+<p>ListNode list=new ListNode(0) 初始化一个节点值为0的空节点，最常用最正规写法</p>
+<p> ListNode list=null 为空，什么都没有，一般不这么写；</p>
+<p>class ListNode{<br>     int val;<br>     ListNode next;</p>
+<p>​     ListNode(int x){<br>​           val = x;<br>​           next = null;<br>​      }<br>}</p>
+</blockquote>
+<p><u>哑结点</u>：哑结点其实就是放在第一个存放数据结点之前、头结点之后的结点。加入哑结点之后就可以使所有数据结点都有前驱结点，这样就会方便执行链表的一些操作。</p>
+<p>这题注意各种特殊用例，比如为数不相同时，x或y要取零的时候，还有相加时若位数增加也要考虑。因为是在leetcode上测试所以不需要进行输入输出的编写，注意curr改变不会影响dummyHead。</p>
+<p><strong>DLL1：感谢三点同学友情赞助两杯奶茶</strong></p>
+<p><strong><img src="/../../../Desktop/blog/source/images/92CF8A1D6B88DEF4C89ACCD92634DBFC.jpg" alt="92CF8A1D6B88DEF4C89ACCD92634DBFC"></strong></p>
+<p><strong>DLL2：今日塞尔达进程</strong></p>
+<p>​         开荒开荒，开了火山地区的高塔，很热进不去。救了一对采生命松露的姐妹。熔岩人根本打不动，我有没有冰系武器。还是努努力把骆驼打了吧，不然主线剧情一年也推不动了。</p>
+<p><strong>DLL3：每日一图</strong></p>
+<p><strong><img src="/../../../Desktop/blog/source/images/darling.jpeg" alt="darling"></strong></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
