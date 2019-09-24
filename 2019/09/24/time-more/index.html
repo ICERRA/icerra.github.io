@@ -58,7 +58,7 @@
     <div class='main'>
         <h1 class="title">time more</h1>
         <div class="stuff">
-            <span>九月 23, 2019</span>
+            <span>九月 24, 2019</span>
             
 
         </div>
@@ -75,11 +75,25 @@
 <p>常见错误： </p>
 <p>​       反转s，使之变为s‘，来寻找s和s’的最长公共子串。这个方法感觉挺简单的，但比如s=abacdfgdcaba，s‘=……  它们两个最长公共子串是abacd，然而这并不是回文。</p>
 <p>​       我们可以看到，当 SS 的其他部分中存在非回文子串的反向副本时，最长公共子串法就会失败。为了纠正这一点，每当我们找到最长的公共子串的候选项时，都需要检查子串的索引是否与反向子串的原始索引相同。如果相同，那么我们尝试更新目前为止找到的最长回文子串；如果不是，我们就跳过这个候选项并继续寻找下一个候选。</p>
-<p>（尚未手写实现）</p>
+<p>（未手写实现）</p>
+<p>  ps：求最长公共子串：<a href="https://www.kancloud.cn/digest/pieces-algorithm/163624" target="_blank" rel="noopener">https://www.kancloud.cn/digest/pieces-algorithm/163624</a></p>
 <p><strong>方法二：暴力法</strong></p>
 <p>​    选出所有子字符串可能的开始和结束位置，并检测它是不是回文。（真的暴力）</p>
 <p><strong>方法三：动态规划</strong></p>
-<p>今天搞不完了，先传个雏形吧</p>
+<p>   对暴力法的改进，需要观察如何避免在验证回文时进行不必要的重复计算，比如考虑ababa，如果已知bab是回文，那么很明显ababa是回文因为左首字母和右尾字母是相同的。</p>
+<p>我们给出 P(i,j)的定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我直接给网站不就好了</span><br><span class="line">https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode/</span><br></pre></td></tr></table></figure>
+
+<p>  不会写</p>
+<p><strong>方法四：中心扩展算法</strong></p>
+<p>  事实上，只需使用恒定的空间，我们就可以在 O(n^2) 的时间内解决这个问题。</p>
+<p>我们观察到回文中心的两侧互为镜像。因此，回文可以从它的中心展开，并且只有 2n - 1个这样的中心。你可能会问，为什么会是 2n - 1个，而不是 n 个中心？原因在于所含字母数为偶数的回文的中心可以处于两字母之间（例如“abba” 的中心在两个‘b’ 之间）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.length() &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="string">""</span>; <span class="comment">//两种情况区别见：</span></span><br><span class="line">                                         <span class="comment">// https://www.zhihu.com/question/19858118</span></span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>, end = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;        <span class="comment">//向两边扩展</span></span><br><span class="line">        <span class="keyword">int</span> len1 = expandAroundCenter(s, i, i);        <span class="comment">//单点扩展</span></span><br><span class="line">        <span class="keyword">int</span> len2 = expandAroundCenter(s, i, i + <span class="number">1</span>);    <span class="comment">//双点扩展</span></span><br><span class="line">        <span class="keyword">int</span> len = Math.max(len1, len2);   <span class="comment">//取i=3，成功一次，len=2</span></span><br><span class="line">        <span class="keyword">if</span> (len &gt; end - start) &#123;       <span class="comment">//超出本次区间 选出新区间</span></span><br><span class="line">            start = i - (len - <span class="number">1</span>) / <span class="number">2</span>; <span class="comment">//start=3</span></span><br><span class="line">            end = i + len / <span class="number">2</span>;        <span class="comment">//end=3+1=4  这全是找规律得的吧</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.substring(start, end + <span class="number">1</span>);  <span class="comment">//substring返回字符串的子字符串</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">expandAroundCenter</span><span class="params">(String s, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;   <span class="comment">//返回某一区间内回文长度</span></span><br><span class="line">    <span class="keyword">int</span> L = left, R = right;</span><br><span class="line">    <span class="keyword">while</span> (L &gt;= <span class="number">0</span> &amp;&amp; R &lt; s.length() &amp;&amp; s.charAt(L) == s.charAt(R)) &#123;</span><br><span class="line">        L--;</span><br><span class="line">        R++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> R - L - <span class="number">1</span>; <span class="comment">//比如i=3,成功了一次，此时L=2,R=4，长度为1；若为i，i+1；成功一次，则L=2，R=5,长度为2，还是R-L-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>他人笔记：</p>
+<p>​        来解释一下为什么中心是2n-1而不是n 比如有字符串abcba，这时回文子串是abcda，中心是c；又有字符串adccda，这时回文子串是adccda，中心是cc。 由此可见中心点既有可能是一个字符，也有可能是两个字符，当中心为一个字符的时候有n个中心，当中心为两个字符的时候有n-1个中心，所以一共有2n-1个中心。 然后for循环开始从左到右遍历，为什么会有两次expandAroundCenter，一次是i和i本身，一次是i和i+1，这就是上面说到的一个中心与两个中心。 而后会去判断这两种情况下谁的回文子串最长，并标记出这个子串在原字符串中的定位，即start和end。</p>
+<p><strong>方法五：Manacher算法</strong></p>
+<p>参考： <a href="https://segmentfault.com/a/1190000008484167" target="_blank" rel="noopener">https://segmentfault.com/a/1190000008484167</a> </p>
 <p><strong>DLL1:塞尔达进度</strong></p>
 <p>   平时没空玩，昨天把骆驼打了，卡了一个多月的主线终于向前推进了一点，目前在风之神兽上，不过不太想推太快，先缓一缓接着开荒吧。</p>
 <p><strong>DLL2:每日一图</strong></p>
